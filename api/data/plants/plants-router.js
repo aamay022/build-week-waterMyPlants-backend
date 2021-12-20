@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const Plants = require('../plants/plants-model')
+// const {
+//     restricted
+// } = require('../auth/auth-middleware')
 
 router.get("/:user_id", async (req, res, next) => {
     Plants.findPlantsForUser(req.params.user_id)
@@ -9,12 +12,12 @@ router.get("/:user_id", async (req, res, next) => {
       .catch(next);
   });
 
-  router.post('/:user_id',(req, res, next)=>{
+  router.post('/additem/:user_id',(req, res, next)=>{
     const plant=req.body
     const {user_id}= req.params
     Plants.addPlant(user_id,plant)
         .then(allPlantsByUser=>{
-            res.status(201).json({message:"this user have items listed below",addedPlant:allPlantsByUser[0],allPlantsByUser})
+            res.status(201).json({message:"this user has items listed below",addedPlant:allPlantsByUser[0],allPlantsByUser})
         })
         .catch(next)
 })
