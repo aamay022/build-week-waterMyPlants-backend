@@ -10,15 +10,16 @@ exports.up = async (knex) => {
       plants.increments("plants_id");
       plants.string('nickname',200).notNullable();
       plants.string('species',200).notNullable();
-      // plants.integer('id')
-      // .refrences('id')
-      // .inTable('users')
-      // .onUpdate('RESTRICT')
-      // .onDelete('RESTRICT')
+      plants.string('image')
+      plants.integer('user_id')
+      .references('id')
+      .inTable('users')
+      .onUpdate('RESTRICT')
+      .onDelete('RESTRICT')
     })
 }
 
 exports.down = async (knex) => {
-  await knex.schema.dropTableIfExists('users');
   await knex.schema.dropTableIfExists('plants');
+  await knex.schema.dropTableIfExists('users');
 }

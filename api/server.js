@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const authRouter = require("../api/data/auth/auth-router.js");
 const usersRouter = require("../api/data/users/users-router");
+const plantsRouter = require('../api/data/plants/plants-router')
 // const db = require('./data/db-config')
 
 // function getAllUsers() { return db('users') }
@@ -31,6 +32,7 @@ server.use(cors())
 
 server.use("/api/auth", authRouter);
 server.use("/api/users", usersRouter);
+server.use("/api/plants", plantsRouter);
 
 server.get("/", (req, res) => {
   res.send("Hello, World!");

@@ -6,9 +6,9 @@ const { checkPayload } = require("./auth-middleware");
 
 // REGISTER NEW USER
 router.post("/register", async (req, res, next) => {
-  const { username, password, name, role } = req.body;
+  const { username, password } = req.body;
   const hash = bcrypt.hashSync(password, 8);
-  Users.add({ name, username, password: hash, role })
+  Users.add({ username, password: hash })
     .then((user) => {
       res.status(201).json(user);
     })
@@ -28,6 +28,7 @@ router.post("/login", checkPayload, async (req, res, next) => {
     res.status(200).json({
       token,
       currentUser,
+      message: `Welcome back ${req.body.username}`
     });
   } catch (error) {
     next(error);
